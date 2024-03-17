@@ -35,8 +35,6 @@ class SM3(Optimizer):
             raise ValueError("Invalid beta: {0}".format(beta))
         if not 0.0 <= eps:
             raise ValueError("Invalid eps: {0}".format(eps))
-        if scale:
-            lr=lr*(math.exp(1)**(math.exp(1)/2)) ## i prefer from testing a little higher than adam
 
         defaults = {'lr': lr, 'momentum': momentum, 'beta': beta, 'eps': eps}
         super(SM3, self).__init__(params, defaults)
@@ -709,8 +707,8 @@ class Adafactor(Optimizer):
 
 
 class Lilith(Optimizer):
-    def __init__(self, params, lr: float, eps: float = 1e-8, beta1_m: float = 0.9, beta2_m: float = 0.9,
-                 beta_v: float = 0.999, weight_decay: float = 0., m_norm_min: float = 1e-4, ratio_min: float = 1e-4,
+    def __init__(self, params, lr: float, eps: float = 1e-8, beta1_m: float = 0.9, beta2_m: float = 0.99,
+                 beta_v: float = 0.999, weight_decay: float = 0.01, m_norm_min: float = 1e-4, ratio_min: float = 1e-4,
                  lookahead_k: int = 5, lookahead_beta: float = 0.5):
         defaults = dict(lr=lr, eps=eps, beta1_m=beta1_m, beta2_m=beta2_m, beta_v=beta_v, weight_decay=weight_decay,
                         m_norm_min=m_norm_min, ratio_min=ratio_min, lookahead_k=lookahead_k,
